@@ -1,5 +1,5 @@
 const db = require("../config/dbConfig");
-module.exports.student={
+let student={
 
     
     getAllStudents: async function (){
@@ -31,6 +31,15 @@ module.exports.student={
                 ideation_marks = ?
             WHERE student_id = ?;
         `, [vivaMarks, reportSubmissionMarks, projectExplanationMarks, executionMarks, ideationMarks, studentId]);
+
+        return result;
+    },
+    lockMarks: async function({studentId}){
+        const result = await db.pool.query(`
+            UPDATE Students
+            SET is_locked = true
+            WHERE student_id = ?;
+        `, [studentId]);
 
         return result;
     }

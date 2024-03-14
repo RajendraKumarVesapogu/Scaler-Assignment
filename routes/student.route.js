@@ -1,5 +1,5 @@
 const express = require("express");
-const {getAllStudents, getAllStudentsNotAssigned, assignMentor} = require("../controllers/student-controller");
+const {getAllStudents, getAllStudentsNotAssigned, assignMentor, updateMarksOfStudent} = require("../controllers/student-controller");
 const router = express.Router();
 
 
@@ -14,10 +14,15 @@ router.get("/notassigned", async (req, res) => {
     await getAllStudentsNotAssigned(req, res);
     
 });
+
 router.put("/assign", async (req, res) => {
     
-        await assignMentor(req, res);
+    await assignMentor(req, res);
         
 });
+
+router.put('/update', async (req,res) => {
+    await updateMarksOfStudent(req,res);
+})
 
 module.exports = router;
