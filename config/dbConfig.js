@@ -1,47 +1,41 @@
-const { Pool } = require('pg'); // Import the PostgreSQL client library
-
-// Load environment variables securely (refer to best practices)
-const dotenv = require('dotenv');
+const mysql = require("mysql2");
+const dotenv =  require('dotenv');
 dotenv.config();
-
-const pool = new Pool({
-  host: process.env.MYSQL_HOSTNAME,
+const pool = mysql.createPool({
+    host: process.env.MYSQL_HOSTNAME,
     user: process.env.MYSQL_USERNAME,
     password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE // Default port for PostgreSQL
-});
+    database: process.env.MYSQL_DATABASE
+}).promise();
 
-async function query(sql, params = []) {
-  try {
-    const client = await pool.connect();
-    const result = await client.query(sql, params);
-    await client.release();
-    return result.rows;
-  } catch (error) {
-    console.error('Error running query:', error);
-    throw error; // Re-throw the error for proper handling
-  }
-}
+module.exports.pool = pool;
 
-async function queryOne(sql, params = []) {
-  try {
-    const result = await query(sql, params);
-    return result[0];
-  } catch (error) {
-    console.error('Error running query:', error);
-    throw error; // Re-throw the error for proper handling
-  }
-}
 
-async function start() {
-  try {
-    const result = await query('SELECT * FROM mentor');
-    console.log(result);
-  } catch (error) {
-    console.error('Error in start function:', error);
-  }
-}
+// const {Pool} = require('pg');
+// const dotenv = require('dotenv');
+// dotenv.config();
 
-// Export the connection pool for potential reus
+// const poolConfig = {
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     host: process.env.DB_HOST,
+//     port: process.env.DB_PORT,
+//     database: process.env.DB_DATABASE
+// };
 
-module.exports = { pool, query, queryOne };
+// poolConfig.ssl = {
+//     rejectUnauthorized: false
+// };
+// poolConfig.connectionString = process.env.DATABASE_URL;
+
+// const client = new Pool(poolConfig);
+
+// client.connect((err)=>{
+//     if(err){
+//         console.log('Error connecting to the database');
+//     }else{
+//         console.log('Connected to the database');
+//     }
+// });
+
+// module.exports.pool = client;
