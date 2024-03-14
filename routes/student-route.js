@@ -21,6 +21,10 @@ router.put("/assign", async (req, res) => {
         
 });
 
+router.put("/delete", async(req,res)=>{
+    await removeMentor(req,res);
+});
+
 router.put('/update', async (req,res) => {
     await updateMarksOfStudent(req,res);
 })
