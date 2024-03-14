@@ -1,5 +1,5 @@
 const express = require("express");
-const {getAllStudents, getAllStudentsNotAssigned, assignMentor, updateMarksOfStudent} = require("../controllers/student-controller");
+const {StudentController : {getAllStudents, getAllStudentsNotAssigned, assignMentor, updateMarksOfStudent}} = require("../controllers/student-controller");
 const router = express.Router();
 
 

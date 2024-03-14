@@ -3,7 +3,7 @@ const app = express();
 const dotenv =  require('dotenv');
 dotenv.config();
 const mentorRouter = require('./routes/mentor-route');
-const studentRouter = require('./routes/student.route');
+const studentRouter = require('./routes/student-route');
 
 app.use(express.json());
 
