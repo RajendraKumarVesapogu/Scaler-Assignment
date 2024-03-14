@@ -42,11 +42,15 @@ module.exports.StudentController = {
             res.status(500).json({ error: error.message });
         }
     },
-    
+
     updateMarks: async (req, res) => {
-        let {vivaMarks, reportSubmissionMarks, projectExplanationMarks, executionMarks, ideationMarks, studentId} = req.body;
         try {
-            updateMarksOfStudent
+            let {vivaMarks, reportSubmissionMarks, projectExplanationMarks, executionMarks, ideationMarks, studentId} = req.body;
+            let data = await student.updateMarksOfStudent({vivaMarks, reportSubmissionMarks, projectExplanationMarks, executionMarks, ideationMarks, studentId});
+            res.status(200).json(data);
+        }
+        catch(error){
+            res.status(500).json({ error: error.message });
         }
          
     }
