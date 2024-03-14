@@ -36,7 +36,7 @@ module.exports.StudentController = {
         try {
         let {studentId,mentorId} = req.body;
         var data = await student.removeMentor({studentId,mentorId});
-        res.json(data);
+            res.json(data);
         }
         catch (error) {
             res.status(500).json({ error: error.message });
