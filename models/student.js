@@ -25,17 +25,16 @@ let student={
         const result = await db.pool.query("UPDATE student SET assigned_mentor_id = NULL WHERE student_id = ? and assigned_mentor_id = ?",[studentId, mentorId]);
         return result;
     },
-    updateMarks: async function({vivaMarks, reportSubmissionMarks, projectExplanationMarks, executionMarks, ideationMarks, studentId}){
+    updateMarks: async function({vivaMarks, executionMarks, ideationMarks,totalMarks, studentId}){
         const result = await db.pool.query(`
             UPDATE student
             SET 
                 viva_marks = ?,
-                report_submission_marks = ?,
-                project_explanation_marks = ?,
                 execution_marks = ?,
-                ideation_marks = ?
+                ideation_marks = ?,
+                total_marks = ?
             WHERE student_id = ?;
-        `, [vivaMarks, reportSubmissionMarks, projectExplanationMarks, executionMarks, ideationMarks, studentId]);
+        `, [vivaMarks, executionMarks, ideationMarks,totalMarks, studentId]);
 
         return result;
     },

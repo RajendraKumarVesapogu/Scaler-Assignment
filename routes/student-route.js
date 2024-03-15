@@ -1,5 +1,5 @@
 const express = require("express");
-const {StudentController : {getAllStudents, getAllStudentsNotAssigned, assignMentor, updateMarksOfStudent}} = require("../controllers/student-controller");
+const {StudentController : {getAllStudents, getAllStudentsNotAssigned, assignMentor, updateMarks,lockMarks}} = require("../controllers/student-controller");
 const router = express.Router();
 
 
@@ -26,7 +26,12 @@ router.put("/delete", async(req,res)=>{
 });
 
 router.put('/update', async (req,res) => {
-    await updateMarksOfStudent(req,res);
+    await updateMarks(req,res);
 })
+
+router.put('/lock', async (req,res) => {
+    await lockMarks(req,res);
+})
+
 
 module.exports = router;

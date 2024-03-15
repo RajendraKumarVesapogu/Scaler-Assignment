@@ -4,7 +4,8 @@ const dotenv =  require('dotenv');
 dotenv.config();
 const mentorRouter = require('./routes/mentor-route');
 const studentRouter = require('./routes/student-route');
-
+const cors = require('cors');
+app.use(cors());
 app.use(express.json());
 
 app.use('/mentor',mentorRouter);

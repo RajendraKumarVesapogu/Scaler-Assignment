@@ -44,10 +44,22 @@ module.exports.StudentController = {
         }
     },
 
+    lockMarks: async (req, res) => {
+        try {
+            let {studentId} = req.body;
+            let data = await student.lockMarks({studentId});
+            res.status(200).json(data);
+        }
+        catch(error){
+            res.status(500).json({ error: error.message });
+        }
+         
+    },
+
     updateMarks: async (req, res) => {
         try {
-            let {vivaMarks, reportSubmissionMarks, projectExplanationMarks, executionMarks, ideationMarks, studentId} = req.body;
-            let data = await student.updateMarksOfStudent({vivaMarks, reportSubmissionMarks, projectExplanationMarks, executionMarks, ideationMarks, studentId});
+            let {vivaMarks, executionMarks, ideationMarks,totalMarks, studentId} = req.body;
+            let data = await student.updateMarks({vivaMarks,executionMarks, ideationMarks, totalMarks, studentId});
             res.status(200).json(data);
         }
         catch(error){
